@@ -926,6 +926,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     dependencies = {
       'windwp/nvim-ts-autotag',
+      'nvim-treesitter/nvim-treesitter-textobjects',
     },
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
