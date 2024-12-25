@@ -332,7 +332,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        -- { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
   },
@@ -637,8 +637,9 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
+        html = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -674,6 +675,16 @@ require('lazy').setup({
         'black',
         'pylint',
         'eslint_d',
+        'graphql',
+        'cssls',
+        'emmet_ls',
+        'html',
+        'lua_ls',
+        'prismals',
+        'pyright',
+        'svelte',
+        'tailwindcss',
+        'ts_ls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
