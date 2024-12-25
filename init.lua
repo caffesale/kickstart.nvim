@@ -481,6 +481,7 @@ require('lazy').setup({
     },
     config = function()
       -- Brief aside: **What is LSP?**
+      local lspconfig = require 'lspconfig'
       --
       -- LSP is an initialism you've probably heard, but might not understand what it is.
       --
@@ -721,6 +722,21 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
+          end,
+          ['emmet_ls'] = function()
+            lspconfig['emmet_ls'].setup {
+              capabilities = capabilities,
+              filetypes = {
+                'html',
+                'typescriptreact',
+                'javascriptreact',
+                'css',
+                'scss',
+                'sass',
+                'less',
+                'svelte',
+              },
+            }
           end,
         },
       }
