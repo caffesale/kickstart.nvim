@@ -481,7 +481,6 @@ require('lazy').setup({
     },
     config = function()
       -- Brief aside: **What is LSP?**
-      local lspconfig = require 'lspconfig'
       --
       -- LSP is an initialism you've probably heard, but might not understand what it is.
       --
@@ -642,8 +641,6 @@ require('lazy').setup({
           filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
         },
         --
-        html = {},
-
         emmet_ls = {
           filetypes = {
             'html',
@@ -657,13 +654,13 @@ require('lazy').setup({
             'typescript',
             'markdown',
           },
-          lnit_options = {
-            html = {
-              options = {
-                ['jsx.enabled'] = true,
-              },
-            },
-          },
+          -- lnit_options = {
+          --   html = {
+          --     options = {
+          --       ['jsx.enabled'] = true,
+          --     },
+          --   },
+          -- },
         },
 
         lua_ls = {
@@ -714,6 +711,18 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensure_installed = {
+          'ts_ls',
+          'html',
+          'cssls',
+          'tailwindcss',
+          'svelte',
+          'lua_ls',
+          'graphql',
+          'emmet_ls',
+          'prismals',
+          'pyright',
+        },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -722,21 +731,6 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
-          end,
-          ['emmet_ls'] = function()
-            lspconfig['emmet_ls'].setup {
-              capabilities = capabilities,
-              filetypes = {
-                'html',
-                'typescriptreact',
-                'javascriptreact',
-                'css',
-                'scss',
-                'sass',
-                'less',
-                'svelte',
-              },
-            }
           end,
         },
       }
@@ -802,7 +796,6 @@ require('lazy').setup({
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
-      'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       -- Snippet Engine & its associated nvim-cmp source
       {
@@ -841,7 +834,6 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
-      local lspkind = require 'lspkind'
 
       cmp.setup {
         snippet = {
@@ -912,7 +904,6 @@ require('lazy').setup({
           },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
-          { name = 'buffer' },
           { name = 'path' },
         },
       }
@@ -982,7 +973,6 @@ require('lazy').setup({
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     dependencies = {
-      'windwp/nvim-ts-autotag',
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -1022,9 +1012,6 @@ require('lazy').setup({
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
-      autotag = {
-        enable = true,
-      },
     },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
